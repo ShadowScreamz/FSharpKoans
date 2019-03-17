@@ -117,11 +117,8 @@ module ``03: Putting the Function into Functional Programming`` =
             let f a =
                 failwith "An exception will be thrown as soon as this is executed."
                 a + 2
-<<<<<<< HEAD
             f |> should equal 1234
-=======
             "FILL_ME__IN" |> should equal 1234
->>>>>>> 788dc9726328927ca5077267d20171b944a97a5d
         ) |> should throw typeof<System.Exception>
 
     [<Ignore("Later")>]
@@ -200,11 +197,8 @@ module ``03: Putting the Function into Functional Programming`` =
         let a x y = x + "cabbage" + y
         let b r = 50.0 / r
         a |> should be ofType<string->string->string>
-<<<<<<< HEAD
       //  b |> should be ofType<float->float>
-=======
         b |> should be ofType<float->float>
->>>>>>> 788dc9726328927ca5077267d20171b944a97a5d
 
 
     [<Test>]
@@ -309,15 +303,10 @@ module ``03: Putting the Function into Functional Programming`` =
     let ``24 The output type of one pipe must be the input type to the next`` () =
         let a x = x * 2.5
         let b x = x = 7.5
-<<<<<<< HEAD
-        a |> should be ofType<float->float>
-        b |> should be ofType<float->bool>
-      //  float->float |> float->float |> bool |> should equal true
-=======
         a |> should be ofType<float -> float >
         b |> should be ofType<float -> bool>
         3.0 |> a |> b |> should equal true
->>>>>>> 788dc9726328927ca5077267d20171b944a97a5d
+
 
     (*
         The backwards-pipe operator takes:
@@ -337,13 +326,8 @@ module ``03: Putting the Function into Functional Programming`` =
     let ``25 <|, the lesser-used (but still useful) backwards pipe`` () =
         let a x = 
             x = 4
-<<<<<<< HEAD
         not(a 4) |> should equal false
         (not <| a 4) |> should equal false // <-- put <| in one of the spaces to fill in
-=======
-        not (a 4) |> should equal false
-        (not <|  a 4) |> should equal false // <-- put <| in one of the spaces to fill in
->>>>>>> 788dc9726328927ca5077267d20171b944a97a5d
 
     (*
         The compose operator takes:
@@ -371,8 +355,5 @@ module ``03: Putting the Function into Functional Programming`` =
         i 3 |> should equal 16
         j 3 |> should equal 11
         k 3 |> should equal 24
-<<<<<<< HEAD
-     //   l 3 |> should equal 41
-=======
         l 3 |> should equal 32
->>>>>>> 788dc9726328927ca5077267d20171b944a97a5d
+
