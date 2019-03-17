@@ -21,8 +21,13 @@ module ``04: Match expressions`` =
     let ``02 Match expressions are expressions, not statements`` () =
         let result =
             match 9001 with
+<<<<<<< HEAD
             | aa -> // <-- use an identifier pattern here!
                 match aa + 1000 with
+=======
+            | a -> // <-- use an identifier pattern here!
+                match a + 1000 with
+>>>>>>> 788dc9726328927ca5077267d20171b944a97a5d
                 | 10001 -> "Hah! It's a palindromic number!"
                 | x -> "Some number."
             | x -> "I should have matched the other expression."
@@ -59,8 +64,13 @@ module ``04: Match expressions`` =
             | 213 -> "Light"
         x |> should equal 213
         y |> should equal 19
+<<<<<<< HEAD
         z |> should equal "Bite"
         a |> should equal"Trite"
+=======
+        z |> should equal "Light"
+        a |> should equal "Trite"
+>>>>>>> 788dc9726328927ca5077267d20171b944a97a5d
 
     [<Test>]
     let ``05 Using a mapping function`` () =
