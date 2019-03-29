@@ -42,7 +42,7 @@ module ``12: I Have Here In My Hand A List`` =
     [<Test>]
     let ``05 Pattern-matching a list (Part 1).`` () =
         let fruits = ["apple"; "peach"; "orange"; "watermelon"; "pineapple"; "tomato"]
-        let a::[fruits] = fruits
+        let a::_ = fruits
         a |> should equal "apple"
 
     [<Test>]
@@ -57,7 +57,7 @@ module ``12: I Have Here In My Hand A List`` =
         let fruits = ["apple"; "peach"; "orange"; "watermelon"; "pineapple"; "tomato"]
         let _::d::e = fruits
         d |> should equal "peach"
-        e |> should equal "orange"
+        e |> should equal ["orange"; "watermelon"; "pineapple"; "tomato"]
 
     [<Test>]
     let ``08 Pattern-matching a list (Part 4).`` () =
@@ -70,7 +70,7 @@ module ``12: I Have Here In My Hand A List`` =
     let ``09 Pattern-matching a list (Part 5).`` () =
         let fruits = ["apple"; "peach"; "orange"; "watermelon"; "pineapple"; "tomato"]
         let _::_::_::h = fruits
-        h |> should equal "watermelon"
+        h |> should equal [ "watermelon"; "pineapple"; "tomato"]
 
     [<Test>]
     let ``10 Pattern-matching a list (Part 6).`` () =
@@ -113,6 +113,6 @@ module ``12: I Have Here In My Hand A List`` =
     let ``14 Creating a list containing a sequence of numbers, and indexing`` () =
         let k = [6..50]
         let l = [3..3..20]
-        k.[3] |> should equal __
-        l.[3] |> should equal __
+        k.[3] |> should equal [6..50..3]
+        l.[3] |> should equal [3..3..20]
 

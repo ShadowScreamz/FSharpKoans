@@ -18,6 +18,9 @@ module ``05: To iterate is human; to recurse, divine`` =
             | true -> n
         converge 3 10 0 |> should equal 4
 
+        converge 3 10 0 |> should equal __
+
+
     [<Test>]
     let ``02 Tail recursion stops a stack overflow from occurring`` () =
         // CHANGE the recursive function to be tail recursive.
@@ -31,3 +34,6 @@ module ``05: To iterate is human; to recurse, divine`` =
             inner sq
 
         myfun 12 |> should equal 12
+
+        myfun 12 |> should equal
+

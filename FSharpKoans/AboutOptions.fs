@@ -1,5 +1,6 @@
 ﻿namespace FSharpKoans
 open NUnit.Framework
+open FsUnitTyped
 
 (*
 In F#, we tend to use options instead of exceptions for error-handling.
@@ -13,7 +14,7 @@ type Option<'a> =
 There are many built-in functions which return an Option.
 *)
 
-module ``11: Exploring your options and results`` =
+module ``11: Exploring types, options, and results`` =
    (*
       The next function takes in a name and extracts the surname.
       But not all people have surnames!
@@ -41,26 +42,44 @@ module ``11: Exploring your options and results`` =
     // cannot be mistaken for each other, and they therefore make the
     // success and failure cases explicit.
 
+   
     [<Test>]
-    let ``01 Basic Option example`` () =
+    let ``01 Type annotations for function types`` () =
+        let a (x: string) (y: string) = x + y
+        let b (x:float) (y:float) = x + y
+        a |> should be ofType<string -> string -> string>
+        b |> should be ofType<float -> float -> float>
+        a "" "skipping" |> should equal "skipping"
+        b 1.0 0.02 |> should equal 1.02
+
+    [<Test>]
+    let ``02 We can use a type annotation for a function's output`` () =
+        let k a b : float = a * b
+        k 7.5 2.0 |> should equal 15.0 
+
+    [<Test>]
+    let ``03 Basic Option example`` () =
         getSurname "Taylor Swift" |> should equal (Some "Swift")
         getSurname "Eminem" |> should equal None
+
 
     // the System.Int32.TryParse, System.Double.TryParse, etc functions return
     // a tuple of bool * XYZ, where XYZ is the converted value.
     [<Test>]
-    let ``02 Parsing a string safely`` () =
+    let ``04 Parsing a string safely`` () =
         let parse (s:string) =
             match System.Int32.TryParse s with
-            | __ -> __   // <-- fill in the match cases
-            //| "48" -> (Some 48)  // <-- fill in the match cases
-            //| "wut"-> (None)  // <-- fill in the match cases
+            |true , 25 -> (Some 25)   // <-- fill in the match cases
+            |true, 48 -> (Some 48)  // <-- fill in the match cases
+            | _-> (None)  // <-- fill in the match cases
         parse "25" |> should equal (Some 25)
         parse "48" |> should equal (Some 48)
         parse "wut" |> should equal None
 
+   
+
     [<Test>]
-    let ``03 Remapping Option values`` () =
+    let ``05 Remapping Option values`` () =
       let f n =
          match getSurname n with
          | None -> "[no surname]" // <-- write a bunch of good match cases
@@ -76,14 +95,15 @@ module ``11: Exploring your options and results`` =
     | DivisionByZero | NegativeNumberSupplied
 
     [<Test>]
-    let ``04 Using a Result to explain why things went wrong`` () =
+    let ``06 Using a Result to explain why things went wrong`` () =
         let f n m =
             match n<0.0, m=0.0 with
             | true, _ -> Error NegativeNumberSupplied
-            | _, true -> __
+            | _, true -> Error DivisionByZero
             | _ ->
                 // 'sqrt' is the square-root function
                 Ok (sqrt n / m)
         f -6.0 2.5 |> should equal (Error NegativeNumberSupplied)
         f 144.0 2.0 |> should equal (Ok 6.0)
         f 7.3 0.0 |> should equal (Error DivisionByZero)
+       
