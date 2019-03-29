@@ -43,8 +43,8 @@ module ``11: Exploring your options and results`` =
 
     [<Test>]
     let ``01 Basic Option example`` () =
-        getSurname "Taylor Swift" |> should equal __
-        getSurname "Eminem" |> should equal __
+        getSurname "Taylor Swift" |> should equal (Some "Swift")
+        getSurname "Eminem" |> should equal None
 
     // the System.Int32.TryParse, System.Double.TryParse, etc functions return
     // a tuple of bool * XYZ, where XYZ is the converted value.
@@ -52,7 +52,9 @@ module ``11: Exploring your options and results`` =
     let ``02 Parsing a string safely`` () =
         let parse (s:string) =
             match System.Int32.TryParse s with
-            | _ -> __ // <-- fill in the match cases
+            | __ -> __   // <-- fill in the match cases
+            //| "48" -> (Some 48)  // <-- fill in the match cases
+            //| "wut"-> (None)  // <-- fill in the match cases
         parse "25" |> should equal (Some 25)
         parse "48" |> should equal (Some 48)
         parse "wut" |> should equal None
@@ -61,7 +63,10 @@ module ``11: Exploring your options and results`` =
     let ``03 Remapping Option values`` () =
       let f n =
          match getSurname n with
-         | _ -> __ // <-- write a bunch of good match cases
+         | None -> "[no surname]" // <-- write a bunch of good match cases
+         | (Some "Machiavelli") -> "Machiavelli" // <-- write a bunch of good match cases
+         | (Some "Jade") -> "Jade" // <-- write a bunch of good match cases
+         | _ -> "[no surname]" // <-- write a bunch of good match cases
       f "Anubis" |> should equal "[no surname]"
       f "Niccolo Machiavelli" |> should equal "Machiavelli"
       f "Mara Jade" |> should equal "Jade"
@@ -78,7 +83,7 @@ module ``11: Exploring your options and results`` =
             | _, true -> __
             | _ ->
                 // 'sqrt' is the square-root function
-                __ (sqrt n / m)
-        f -6.0 2.5 |> should equal __
+                Ok (sqrt n / m)
+        f -6.0 2.5 |> should equal (Error NegativeNumberSupplied)
         f 144.0 2.0 |> should equal (Ok 6.0)
         f 7.3 0.0 |> should equal (Error DivisionByZero)
