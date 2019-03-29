@@ -35,8 +35,8 @@ module ``13: String manipulation`` =
     let ``06 Getting a string from an integer or float`` () =
         let a = 23
         let b = 17.8
-        printf "%i" a |> should equal "23"
-        printf "%.1f" b |> should equal "17.8"
+        sprintf "%i" a |> should equal "23"
+        sprintf "%.1f" b |> should equal "17.8"
 
     (*
         The next few tests involve the `sprintf` function, which
@@ -104,10 +104,10 @@ module ``13: String manipulation`` =
     [<Test>]
     let ``15 You can use the "usual" C# string methods from F#`` () =
         let s = "  Dr Phil, PhD, MD, MC, Medicine Man  "
-        let ``first index of 'P'`` = s.FILL_ME_IN
-        let ``last index of 'P'`` = s.FILL_ME_IN
-        let ``lowercase version`` = s.FILL_ME_IN
-        let ``without surrounding space`` = s.FILL_ME_IN
+        let ``first index of 'P'`` = s.IndexOf('P')
+        let ``last index of 'P'`` = s.LastIndexOf('P')
+        let ``lowercase version`` = s.ToLower()
+        let ``without surrounding space`` = s.Replace("  ", "")
         ``first index of 'P'`` |> should equal 5
         ``last index of 'P'`` |> should equal 11
         ``lowercase version`` |> should equal "  dr phil, phd, md, mc, medicine man  "
